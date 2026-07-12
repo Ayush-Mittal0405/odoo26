@@ -1,0 +1,353 @@
+/* ─────────────────────────────────────────────────────────────────
+   EcoSphere · Global Stylesheet
+   Light, Professional, Off-White Theme — ESG SaaS Edition
+   ───────────────────────────────────────────────────────────────── */
+
+/* Cabinet Grotesk (display / headings) — Fontshare */
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,600,700,800&display=swap');
+/* Switzer (body / UI text) — Fontshare */
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap');
+
+@import "tailwindcss";
+
+/* ─── Design Token Definitions ─────────────────────────────────── */
+:root {
+  /* Base Backgrounds */
+  --bg-base: #FDFBF6;      /* warm off-white · main app bg */
+  --bg-surface: #FFFFFF;   /* cards, tables, panels — lift off the base */
+  --bg-tint: #F4FFF4;      /* very light green tint · hover, alt rows */
+  --bg-beige: #206020;     /* deep rich green · sidebar, secondary panels */
+  --bg-raised: #F0EEE8;    /* slightly raised surface for inputs, code */
+
+  /* Text */
+  --text-primary: #1B2A1F;    /* near-black w/ green undertone */
+  --text-muted: #6B7A6E;      /* soft sage-grey · secondary text */
+
+  /* Borders */
+  --border-hairline: #E3E8DE; /* light warm-grey-green dividers */
+
+  /* Module Accents */
+  --accent-e: #2E7D32;         /* Environmental · deep nature green */
+  --accent-e-light: #4CAF50;   /* Environmental hover / chart lines */
+  --accent-e-tag: #8BC34A;     /* Environmental tags / progress fills */
+  --accent-s: #3E8E7E;         /* Social · muted teal-green */
+  --accent-g: #6A1B9A;         /* Governance · royal purple */
+  --accent-g-light: #9C27B0;   /* Governance hover / secondary */
+  --accent-game: #C98A2C;      /* Gamification · warm amber/gold */
+
+  /* Status */
+  --status-success: #4CAF50;
+  --status-warning: #C98A2C;
+  --status-critical: #A0392B;  /* muted brick-red · never harsh */
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(46, 125, 50, 0.06), 0 1px 2px rgba(27, 42, 31, 0.04);
+  --shadow-card-hover: 0 4px 12px rgba(46, 125, 50, 0.1), 0 2px 4px rgba(27, 42, 31, 0.06);
+}
+
+/* ─── Tailwind v4 Theme Extension ──────────────────────────────── */
+@theme {
+  --color-bg-base: var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-tint: var(--bg-tint);
+  --color-bg-beige: var(--bg-beige);
+  --color-bg-raised: var(--bg-raised);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+
+  --color-border-hairline: var(--border-hairline);
+
+  --color-accent-e: var(--accent-e);
+  --color-accent-e-light: var(--accent-e-light);
+  --color-accent-e-tag: var(--accent-e-tag);
+  --color-accent-s: var(--accent-s);
+  --color-accent-g: var(--accent-g);
+  --color-accent-g-light: var(--accent-g-light);
+  --color-accent-game: var(--accent-game);
+
+  --color-status-success: var(--status-success);
+  --color-status-warning: var(--status-warning);
+  --color-status-critical: var(--status-critical);
+
+  /* Typography Stack */
+  --font-display: "Cabinet Grotesk", "Switzer", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cabinet Grotesk", "Switzer", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Switzer", "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ─── Base Styles ───────────────────────────────────────────────── */
+html {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* ─── Paper Grain Texture ───────────────────────────────────────── */
+/* Barely-there grain gives the off-white a human, printed quality */
+.paper-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+}
+
+/* ─── Light Atmosphere Background ───────────────────────────────── */
+/* Extremely subtle drifting gradient blush — "light through leaves" */
+@keyframes blush-drift {
+  0%, 100% {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 0.03;
+  }
+  33% {
+    transform: translateX(3%) translateY(-2%) scale(1.05);
+    opacity: 0.045;
+  }
+  66% {
+    transform: translateX(-2%) translateY(3%) scale(0.97);
+    opacity: 0.025;
+  }
+}
+
+@keyframes blush-drift-b {
+  0%, 100% {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 0.03;
+  }
+  50% {
+    transform: translateX(-4%) translateY(-2%) scale(1.08);
+    opacity: 0.05;
+  }
+}
+
+.atmosphere-blush {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.atmosphere-blush::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse at center, #4CAF50 0%, transparent 70%);
+  animation: blush-drift 75s ease-in-out infinite;
+  will-change: transform, opacity;
+  opacity: 0.04;
+}
+
+.atmosphere-blush::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, #9C27B0 0%, transparent 70%);
+  animation: blush-drift-b 90s ease-in-out infinite;
+  will-change: transform, opacity;
+  opacity: 0.03;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere-blush::before,
+  .atmosphere-blush::after {
+    animation: none;
+    opacity: 0.025;
+  }
+}
+
+/* ─── Topo Background (light theme version) ─────────────────────── */
+.topo-bg {
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(46, 125, 50, 0.025) 0%, transparent 60%),
+    radial-gradient(circle at 90% 80%, rgba(106, 27, 154, 0.02) 0%, transparent 60%),
+    repeating-radial-gradient(
+      ellipse at 50% 50%,
+      transparent 0px,
+      transparent 40px,
+      rgba(227, 232, 222, 0.4) 41px,
+      rgba(227, 232, 222, 0.4) 42px,
+      transparent 43px,
+      transparent 80px
+    );
+  background-size: cover;
+  background-color: var(--bg-base);
+}
+
+/* ─── Leaf-Radius Card Shape ────────────────────────────────────── */
+.leaf-card {
+  border-radius: 6px 16px 6px 16px;
+}
+
+/* ─── Card Hover Lift ───────────────────────────────────────────── */
+.card-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ─── Skeleton Shimmer (light theme) ────────────────────────────── */
+@keyframes shimmer-light {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #F4FFF4 25%,
+    #E8F5E9 50%,
+    #F4FFF4 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer-light 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    animation: none;
+    background: #F4FFF4;
+  }
+}
+
+/* ─── Scrollbars (light theme) ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-hairline);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ─── Selection ─────────────────────────────────────────────────── */
+::selection {
+  background: rgba(46, 125, 50, 0.15);
+  color: var(--text-primary);
+}
+
+/* ─── Form Element Overrides ────────────────────────────────────── */
+input,
+select,
+textarea {
+  color-scheme: light;
+}
+
+/* ─── Typography Utilities ──────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Display/header: Cabinet Grotesk tight tracking */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+/* ─── Toast Slide-In ────────────────────────────────────────────── */
+@keyframes slide-in-right {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.animate-slide-in {
+  animation: slide-in-right 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ─── Scale-Up Modal ────────────────────────────────────────────── */
+@keyframes scale-up {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.animate-scale-up {
+  animation: scale-up 0.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ─── Scrollbar Hide Utility ─────────────────────────────────────── */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+/* ─── Premium Background Grid & Spotlight Orbs ─────────────────── */
+.grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(46, 125, 50, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(46, 125, 50, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+@keyframes float-orb {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-25px) translateX(15px) scale(1.08);
+  }
+}
+
+@keyframes float-orb-reverse {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1.08);
+  }
+  50% {
+    transform: translateY(30px) translateX(-20px) scale(0.95);
+  }
+}
+
+.glow-orb-green {
+  background: radial-gradient(circle at center, rgba(76, 175, 80, 0.055) 0%, transparent 70%);
+  animation: float-orb 22s ease-in-out infinite;
+}
+
+.glow-orb-purple {
+  background: radial-gradient(circle at center, rgba(106, 27, 154, 0.04) 0%, transparent 70%);
+  animation: float-orb-reverse 28s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-orb-green, .glow-orb-purple {
+    animation: none;
+  }
+}
+
