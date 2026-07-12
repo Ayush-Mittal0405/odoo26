@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Leaf shape -->
+  <path d="M60 10 C30 30, 15 60, 25 90 C35 75, 45 55, 60 40 C75 55, 85 75, 95 90 C105 60, 90 30, 60 10Z" fill="#2E7D32"/>
+  <!-- Leaf vein -->
+  <path d="M60 25 L60 75" stroke="#A5D6A7" stroke-width="2" stroke-linecap="round"/>
+  <path d="M60 40 L45 55" stroke="#A5D6A7" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M60 50 L75 60" stroke="#A5D6A7" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M60 55 L48 68" stroke="#A5D6A7" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- PF Text -->
+  <text x="60" y="108" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="22" fill="#2E7D32">PF</text>
+</svg>
