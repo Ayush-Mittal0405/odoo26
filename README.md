@@ -53,7 +53,7 @@ Welcome to **EcoSphere** (developed under the *Pavitrarpan Foundation* workspace
 ## 📂 Project Directory Structure
 
 ```text
-pavitrarpan-foundation/
+Odoo26/
 ├── .env                  # Local environment variables
 ├── .env.example          # Template for environment configuration
 ├── next.config.ts        # Next.js configuration
