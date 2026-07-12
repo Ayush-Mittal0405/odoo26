@@ -11,7 +11,10 @@
 
 * Connected the PostgreSQL database with the backend application.
 * Configured environment variables and API keys required for the project.
-* Verified successful database connectivity and backend configuration.
+* Established database connectivity using Prisma ORM.
+* Resolved a PostgreSQL–Node.js endpoint connection issue caused by duplicate variable declarations in the Prisma configuration.
+* Successfully restored API communication after removing the conflicting duplicate variable.
+* Initialized and verified a clean Node.js server environment.
 * Started integrating APIs for communication between the frontend and backend.
 
 ## Frontend Development
@@ -28,6 +31,9 @@
 * ✅ Database schema created
 * ✅ Database migrations completed
 * ✅ Backend connected to the database
+* ✅ Prisma ORM configured
 * ✅ API keys configured
+* ✅ PostgreSQL–Node.js connection issue resolved
+* ✅ Clean Node.js server initialized
 * 🚧 Frontend UI under development
 * 🚧 Frontend-backend integration in progress
