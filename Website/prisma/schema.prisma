@@ -1,0 +1,231 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Employee {
+  id                String   @id @default(cuid())
+  employeeId        String   @unique // e.g. EMP-0882
+  name              String
+  department        String
+  points            Int      @default(0)
+  xp                Int      @default(0)
+  joinedChallenges  String[] @default([]) // challenge IDs
+  badges            String[] @default([]) // badge IDs
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("employees")
+}
+
+model EmissionFactor {
+  id           String   @id @default(cuid())
+  factorId     String   @unique // e.g. EF-01
+  name         String
+  activityType String
+  unit         String
+  co2Factor    Float
+  status       String   @default("active") // "active" | "draft"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("emission_factors")
+}
+
+model ProductProfile {
+  id              String   @id @default(cuid())
+  productId       String   @unique // e.g. PROD-A
+  name            String
+  sku             String   @unique
+  carbonFootprint Float
+  waterFootprint  Float
+  recycledContent Float
+  complianceScore Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("product_profiles")
+}
+
+model CarbonTransaction {
+  id           String   @id @default(cuid())
+  txId         String   @unique // e.g. TX-001
+  date         String
+  department   String
+  activityType String
+  description  String
+  quantity     Float
+  unit         String
+  co2e         Float
+  source       String   @default("Manual") // "Auto" | "Manual"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("carbon_transactions")
+}
+
+model EnvironmentalGoal {
+  id         String   @id @default(cuid())
+  goalId     String   @unique // e.g. GOAL-01
+  name       String
+  department String
+  targetCo2  Float
+  currentCo2 Float
+  deadline   String
+  status     String   @default("on-track") // "on-track" | "delayed" | "achieved"
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("environmental_goals")
+}
+
+model CsrActivity {
+  id               String   @id @default(cuid())
+  activityId       String   @unique // e.g. CSR-01
+  name             String
+  category         String
+  icon             String
+  joinedCount      Int      @default(0)
+  evidenceRequired Boolean  @default(false)
+  joinedEmployees  String[] @default([]) // employee IDs
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("csr_activities")
+}
+
+model EmployeeParticipation {
+  id            String   @id @default(cuid())
+  partId        String   @unique // e.g. PART-01
+  employeeName  String
+  activityName  String
+  date          String
+  hasProof      Boolean  @default(false)
+  proofFileName String?
+  status        String   @default("pending") // "pending" | "approved" | "rejected"
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("employee_participations")
+}
+
+model Policy {
+  id          String   @id @default(cuid())
+  policyId    String   @unique // e.g. POL-01
+  name        String
+  category    String   // "E" | "S" | "G"
+  status      String   @default("active") // "active" | "draft" | "under-review"
+  version     String
+  lastUpdated String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("policies")
+}
+
+model PolicyAcknowledgement {
+  id           String   @id @default(cuid())
+  ackId        String   @unique // e.g. ACK-01
+  employeeName String
+  policyName   String
+  status       String   @default("pending") // "acknowledged" | "pending"
+  date         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("policy_acknowledgements")
+}
+
+model Audit {
+  id       String   @id @default(cuid())
+  auditId  String   @unique // e.g. AUD-01
+  name     String
+  date     String
+  auditor  String
+  findings Int      @default(0)
+  status   String   @default("scheduled") // "completed" | "in-progress" | "scheduled"
+  scope    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("audits")
+}
+
+model ComplianceIssue {
+  id         String   @id @default(cuid())
+  issueId    String   @unique // e.g. COMP-01
+  issue      String
+  severity   String   // "low" | "medium" | "high" | "critical"
+  department String
+  owner      String
+  dueDate    String
+  status     String   @default("open") // "open" | "resolved" | "under-review"
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("compliance_issues")
+}
+
+model Challenge {
+  id           String   @id @default(cuid())
+  challengeId  String   @unique // e.g. CHAL-01
+  name         String
+  description  String
+  category     String   // "E" | "S" | "G"
+  status       String   @default("Draft") // "Draft" | "Active" | "Under Review" | "Completed" | "Archived"
+  xpReward     Int      @default(0)
+  pointsReward Int      @default(0)
+  target       String
+  progress     Int      @default(0)
+  duration     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("challenges")
+}
+
+model Reward {
+  id             String   @id @default(cuid())
+  rewardId       String   @unique // e.g. REW-01
+  name           String
+  description    String
+  pointsRequired Int
+  stock          Int      @default(0)
+  status         String   @default("active") // "active" | "out-of-stock"
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("rewards")
+}
+
+model AppNotification {
+  id          String   @id @default(cuid())
+  notifId     String   @unique // e.g. NT-1
+  title       String
+  description String
+  category    String   // "E" | "S" | "G" | "Gamification" | "System"
+  timestamp   String
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("notifications")
+}
+
+model Settings {
+  id                    String  @id @default(cuid())
+  weightEnvironmental   Int     @default(40)
+  weightSocial          Int     @default(30)
+  weightGovernance      Int     @default(30)
+  autoEmissionCalc      Boolean @default(true)
+  evidenceReqForCsr     Boolean @default(true)
+  badgeAutoAward        Boolean @default(true)
+  complianceEmailAlert  Boolean @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map("settings")
+}
