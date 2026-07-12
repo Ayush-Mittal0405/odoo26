@@ -101,7 +101,6 @@ enum IssueSeverity {
   CRITICAL
 }
 
-<<<<<<< HEAD
 enum GoalStatus {
   ACTIVE
   ON_TRACK
@@ -109,8 +108,6 @@ enum GoalStatus {
   FAILED
 }
 
-=======
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 enum IssueStatus {
   OPEN
   IN_PROGRESS
@@ -133,7 +130,6 @@ model Department {
   createdAt          DateTime         @default(now()) @map("created_at")
   updatedAt          DateTime         @updatedAt @map("updated_at")
 
-<<<<<<< HEAD
   headEmployee       Employee?           @relation("DepartmentHead", fields: [headEmployeeId], references: [id])
   parentDepartment   Department?         @relation("DepartmentHierarchy", fields: [parentDepartmentId], references: [id])
   childDepartments   Department[]        @relation("DepartmentHierarchy")
@@ -143,23 +139,11 @@ model Department {
   environmentalGoals EnvironmentalGoal[]
   audits             Audit[]
   departmentScores   DepartmentScore[]
-=======
-  headEmployee     Employee?          @relation("DepartmentHead", fields: [headEmployeeId], references: [id])
-  parentDepartment Department?        @relation("DepartmentHierarchy", fields: [parentDepartmentId], references: [id])
-  childDepartments Department[]       @relation("DepartmentHierarchy")
-  employees        Employee[]         @relation("DepartmentEmployees")
-  carbonTxns       CarbonTransaction[]
-  csrActivities    CsrActivity[]
-  environmentalGoals EnvironmentalGoal[]
-  audits           Audit[]
-  departmentScores DepartmentScore[]
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   @@map("departments")
 }
 
 model Employee {
-<<<<<<< HEAD
   id            String   @id @default(uuid())
   departmentId  String?  @map("department_id")
   name          String
@@ -173,30 +157,13 @@ model Employee {
 
   department              Department?              @relation("DepartmentEmployees", fields: [departmentId], references: [id])
   headOfDepartment        Department?              @relation("DepartmentHead")
-=======
-  id             String   @id @default(uuid())
-  departmentId   String?  @map("department_id")
-  name           String
-  email          String   @unique
-  role           String?
-  xpTotal        Int      @default(0) @map("xp_total")
-  pointsBalance  Int      @default(0) @map("points_balance")
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
-
-  department              Department?             @relation("DepartmentEmployees", fields: [departmentId], references: [id])
-  headOfDepartment        Department?             @relation("DepartmentHead")
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
   employeeParticipations  EmployeeParticipation[]
   challengeParticipations ChallengeParticipation[]
   employeeBadges          EmployeeBadge[]
   rewardRedemptions       RewardRedemption[]
   policyAcknowledgements  PolicyAcknowledgement[]
   ownedComplianceIssues   ComplianceIssue[]        @relation("IssueOwner")
-<<<<<<< HEAD
   notifications           Notification[]
-=======
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   @@map("employees")
 }
@@ -215,19 +182,11 @@ model Category {
 }
 
 model EmissionFactor {
-<<<<<<< HEAD
   id            String   @id @default(uuid())
   activityType  String   @map("activity_type")
   unit          String
   co2PerUnit    Decimal  @map("co2_per_unit") @db.Decimal(12, 4)
   effectiveDate DateTime @map("effective_date") @db.Date
-=======
-  id             String   @id @default(uuid())
-  activityType   String   @map("activity_type")
-  unit           String
-  co2PerUnit     Decimal  @map("co2_per_unit") @db.Decimal(12, 4)
-  effectiveDate  DateTime @map("effective_date") @db.Date
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   carbonTxns CarbonTransaction[]
 
@@ -235,7 +194,6 @@ model EmissionFactor {
 }
 
 model EnvironmentalGoal {
-<<<<<<< HEAD
   id           String  @id @default(uuid())
   departmentId String  @map("department_id")
   metric       String
@@ -245,14 +203,6 @@ model EnvironmentalGoal {
   deadline DateTime @db.Date
 
   status GoalStatus @default(ACTIVE)
-=======
-  id           String   @id @default(uuid())
-  departmentId String   @map("department_id")
-  metric       String
-  targetValue  Decimal  @map("target_value") @db.Decimal(12, 2)
-  currentValue Decimal  @default(0) @map("current_value") @db.Decimal(12, 2)
-  deadline     DateTime @db.Date
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
 
@@ -260,7 +210,6 @@ model EnvironmentalGoal {
 }
 
 model EsgPolicy {
-<<<<<<< HEAD
   id            String       @id @default(uuid())
   title         String
   description   String?
@@ -268,15 +217,6 @@ model EsgPolicy {
   version       String
   status        PolicyStatus @default(DRAFT)
   effectiveDate DateTime?    @map("effective_date") @db.Date
-=======
-  id          String       @id @default(uuid())
-  title       String
-  description String?
-  category    String?
-  version     String
-  status      PolicyStatus @default(DRAFT)
-  effectiveDate DateTime?  @map("effective_date") @db.Date
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   acknowledgements PolicyAcknowledgement[]
 
@@ -284,17 +224,10 @@ model EsgPolicy {
 }
 
 model Badge {
-<<<<<<< HEAD
   id          String  @id @default(uuid())
   name        String  @unique
   description String?
   unlockRule  String  @map("unlock_rule")
-=======
-  id          String @id @default(uuid())
-  name        String @unique
-  description String?
-  unlockRule  String @map("unlock_rule")
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
   icon        String?
 
   employeeBadges EmployeeBadge[]
@@ -348,16 +281,11 @@ model CsrActivity {
   activityDate DateTime          @map("activity_date") @db.Date
   status       CsrActivityStatus @default(DRAFT)
 
-<<<<<<< HEAD
   createdAt DateTime @default(now()) @map("created_at")
 
   department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   category   Category   @relation(fields: [categoryId], references: [id], onDelete: Restrict)
 
-=======
-  department   Department              @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  category     Category                @relation(fields: [categoryId], references: [id], onDelete: Restrict)
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
   participations EmployeeParticipation[]
 
   @@index([departmentId])
@@ -366,7 +294,6 @@ model CsrActivity {
 }
 
 model EmployeeParticipation {
-<<<<<<< HEAD
   id             String         @id @default(uuid())
   employeeId     String         @map("employee_id")
   activityId     String         @map("activity_id")
@@ -374,15 +301,6 @@ model EmployeeParticipation {
   approvalStatus ApprovalStatus @default(PENDING) @map("approval_status")
   pointsEarned   Int            @default(0) @map("points_earned")
   completionDate DateTime?      @map("completion_date") @db.Date
-=======
-  id               String         @id @default(uuid())
-  employeeId       String         @map("employee_id")
-  activityId       String         @map("activity_id")
-  proofFile        String?        @map("proof_file")
-  approvalStatus   ApprovalStatus @default(PENDING) @map("approval_status")
-  pointsEarned     Int            @default(0) @map("points_earned")
-  completionDate   DateTime?      @map("completion_date") @db.Date
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   employee Employee    @relation(fields: [employeeId], references: [id], onDelete: Cascade)
   activity CsrActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
@@ -393,7 +311,6 @@ model EmployeeParticipation {
 }
 
 model Challenge {
-<<<<<<< HEAD
   id               String              @id @default(uuid())
   categoryId       String              @map("category_id")
   title            String
@@ -408,19 +325,6 @@ model Challenge {
 
   category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
 
-=======
-  id                String              @id @default(uuid())
-  categoryId        String              @map("category_id")
-  title             String
-  description       String?
-  xp                Int
-  difficulty        ChallengeDifficulty @default(MEDIUM)
-  evidenceRequired  Boolean             @default(false) @map("evidence_required")
-  deadline          DateTime?           @db.Date
-  status            ChallengeStatus     @default(DRAFT)
-
-  category       Category                 @relation(fields: [categoryId], references: [id], onDelete: Restrict)
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
   participations ChallengeParticipation[]
 
   @@index([categoryId])
@@ -445,17 +349,10 @@ model ChallengeParticipation {
 }
 
 model EmployeeBadge {
-<<<<<<< HEAD
   id          String   @id @default(uuid())
   employeeId  String   @map("employee_id")
   badgeId     String   @map("badge_id")
   awardedDate DateTime @default(now()) @map("awarded_date") @db.Date
-=======
-  id           String   @id @default(uuid())
-  employeeId   String   @map("employee_id")
-  badgeId      String   @map("badge_id")
-  awardedDate  DateTime @default(now()) @map("awarded_date") @db.Date
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
   badge    Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
@@ -466,21 +363,12 @@ model EmployeeBadge {
 }
 
 model RewardRedemption {
-<<<<<<< HEAD
   id             String           @id @default(uuid())
   employeeId     String           @map("employee_id")
   rewardId       String           @map("reward_id")
   pointsDeducted Int              @map("points_deducted")
   redemptionDate DateTime         @default(now()) @map("redemption_date") @db.Date
   status         RedemptionStatus @default(PENDING)
-=======
-  id              String           @id @default(uuid())
-  employeeId      String           @map("employee_id")
-  rewardId        String           @map("reward_id")
-  pointsDeducted  Int              @map("points_deducted")
-  redemptionDate  DateTime         @default(now()) @map("redemption_date") @db.Date
-  status          RedemptionStatus @default(PENDING)
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
   reward   Reward   @relation(fields: [rewardId], references: [id], onDelete: Restrict)
@@ -491,19 +379,11 @@ model RewardRedemption {
 }
 
 model PolicyAcknowledgement {
-<<<<<<< HEAD
   id               String                @id @default(uuid())
   policyId         String                @map("policy_id")
   employeeId       String                @map("employee_id")
   acknowledgedDate DateTime?             @map("acknowledged_date") @db.Date
   status           AcknowledgementStatus @default(PENDING)
-=======
-  id                 String                @id @default(uuid())
-  policyId           String                @map("policy_id")
-  employeeId         String                @map("employee_id")
-  acknowledgedDate   DateTime?             @map("acknowledged_date") @db.Date
-  status             AcknowledgementStatus @default(PENDING)
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   policy   EsgPolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
   employee Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
@@ -521,20 +401,14 @@ model Audit {
   auditDate    DateTime    @map("audit_date") @db.Date
   status       AuditStatus @default(PLANNED)
 
-<<<<<<< HEAD
   department       Department        @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   complianceIssues ComplianceIssue[]
-=======
-  department        Department        @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  complianceIssues  ComplianceIssue[]
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   @@index([departmentId])
   @@map("audits")
 }
 
 model ComplianceIssue {
-<<<<<<< HEAD
   id              String        @id @default(uuid())
   auditId         String        @map("audit_id")
   severity        IssueSeverity
@@ -543,16 +417,6 @@ model ComplianceIssue {
   dueDate         DateTime      @map("due_date") @db.Date
   status          IssueStatus   @default(OPEN)
   createdAt       DateTime      @default(now()) @map("created_at")
-=======
-  id               String        @id @default(uuid())
-  auditId          String        @map("audit_id")
-  severity         IssueSeverity
-  description      String
-  ownerEmployeeId  String        @map("owner_employee_id")
-  dueDate          DateTime      @map("due_date") @db.Date
-  status           IssueStatus   @default(OPEN)
-  createdAt        DateTime      @default(now()) @map("created_at")
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   audit         Audit    @relation(fields: [auditId], references: [id], onDelete: Restrict)
   ownerEmployee Employee @relation("IssueOwner", fields: [ownerEmployeeId], references: [id], onDelete: Restrict)
@@ -563,7 +427,6 @@ model ComplianceIssue {
 }
 
 model DepartmentScore {
-<<<<<<< HEAD
   id                 String   @id @default(uuid())
   departmentId       String   @map("department_id")
   period             String
@@ -572,23 +435,12 @@ model DepartmentScore {
   governanceScore    Decimal  @default(0) @map("governance_score") @db.Decimal(5, 2)
   totalScore         Decimal  @default(0) @map("total_score") @db.Decimal(5, 2)
   calculatedAt       DateTime @default(now()) @map("calculated_at")
-=======
-  id                  String   @id @default(uuid())
-  departmentId        String   @map("department_id")
-  period              String
-  environmentalScore  Decimal  @default(0) @map("environmental_score") @db.Decimal(5, 2)
-  socialScore         Decimal  @default(0) @map("social_score") @db.Decimal(5, 2)
-  governanceScore     Decimal  @default(0) @map("governance_score") @db.Decimal(5, 2)
-  totalScore          Decimal  @default(0) @map("total_score") @db.Decimal(5, 2)
-  calculatedAt        DateTime @default(now()) @map("calculated_at")
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b
 
   department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
 
   @@unique([departmentId, period])
   @@map("department_scores")
 }
-<<<<<<< HEAD
 
 model Notification {
   id         String   @id @default(uuid())
@@ -626,5 +478,3 @@ model AppSetting {
 
   @@map("app_settings")
 }
-=======
->>>>>>> 5076d4d7ae5d0b4b37a1ca2b6e26b00b145bfa6b

@@ -25,7 +25,11 @@ export default function GamificationPage() {
 
   const handleAddChallenge = async () => {
     try {
-      await post('/gamification/challenges', form);
+      if (!form.title || !form.categoryId || !form.deadline) {
+        alert("All fields (Title, Category, Deadline) are required.");
+        return;
+      }
+      await post('/gamification/challenges', { xp: 100, difficulty: 'MEDIUM', ...form });
       refetchChallenges();
       setShowModal(false);
       setForm({});

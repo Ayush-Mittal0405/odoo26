@@ -21,7 +21,11 @@ export default function SocialPage() {
 
   const handleAdd = async () => {
     try {
-      await post('/social/activities', form);
+      if (!form.title || !form.departmentId || !form.categoryId || !form.activityDate) {
+        alert("All fields (Title, Department, Category, Date) are required.");
+        return;
+      }
+      await post('/social/activities', { status: 'ACTIVE', ...form });
       refetch();
       setShowModal(false);
       setForm({});

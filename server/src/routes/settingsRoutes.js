@@ -21,4 +21,7 @@ router.get("/notifications", authenticate, ctrl.getNotifications);
 router.put("/notifications/:id/read", authenticate, ctrl.markNotificationRead);
 router.put("/notifications/read-all", authenticate, ctrl.markAllRead);
 
+// Employees
+router.get("/employees", authenticate, ctrl.getEmployees);
+
 module.exports = router;

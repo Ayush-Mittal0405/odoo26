@@ -187,3 +187,22 @@ exports.markAllRead = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+exports.getEmployees = async (req, res) => {
+  try {
+    const employees = await prisma.employee.findMany({
+      orderBy: { name: "asc" },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        department: { select: { name: true } },
+      },
+    });
+    res.json({ success: true, data: employees });
+  } catch (error) {
+    console.error("getEmployees error:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

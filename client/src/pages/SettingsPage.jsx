@@ -25,10 +25,18 @@ export default function SettingsPage() {
   const handleAdd = async () => {
     try {
       if (tab === 'departments') {
+        if (!form.name || !form.code) {
+          alert("Department Name and Code are required.");
+          return;
+        }
         await post('/settings/departments', form);
         refetchDepts();
       } else if (tab === 'categories') {
-        await post('/settings/categories', form);
+        if (!form.name) {
+          alert("Category Name is required.");
+          return;
+        }
+        await post('/settings/categories', { type: 'CSR_ACTIVITY', ...form });
         refetchCats();
       }
       setShowModal(false);

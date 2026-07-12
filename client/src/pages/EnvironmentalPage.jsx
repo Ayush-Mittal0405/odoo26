@@ -29,13 +29,25 @@ export default function EnvironmentalPage() {
   const handleAdd = async () => {
     try {
       if (tab === 'transactions') {
-        await post('/environmental/transactions', form);
+        if (!form.departmentId || !form.emissionFactorId || !form.quantity || !form.txnDate) {
+          alert("All fields (Department, Emission Factor, Source, Quantity, Date) are required.");
+          return;
+        }
+        await post('/environmental/transactions', { sourceType: 'MANUAL', ...form });
         refetchTxns();
       } else if (tab === 'goals') {
+        if (!form.departmentId || !form.metric || !form.targetValue || !form.deadline) {
+          alert("All fields (Department, Metric, Target, Deadline) are required.");
+          return;
+        }
         await post('/environmental/goals', form);
         refetchGoals();
       } else {
-        await post('/environmental/products', form);
+        if (!form.productName || form.carbonScore === undefined) {
+          alert("Product Name and Carbon Score are required.");
+          return;
+        }
+        await post('/environmental/products', { recyclable: false, ...form });
         refetchProducts();
       }
       setShowModal(false);

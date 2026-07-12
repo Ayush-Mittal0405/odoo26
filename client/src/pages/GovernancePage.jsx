@@ -13,6 +13,7 @@ export default function GovernancePage() {
   const { data: auditData, refetch: refetchAudits } = useApi('/governance/audits');
   const { data: issueData, refetch: refetchIssues } = useApi('/governance/compliance-issues');
   const { data: deptData } = useApi('/settings/departments');
+  const { data: empData } = useApi('/settings/employees');
   const { post, loading: posting } = usePost();
 
   const [form, setForm] = useState({});
@@ -24,13 +25,25 @@ export default function GovernancePage() {
   const handleAdd = async () => {
     try {
       if (tab === 'policies') {
-        await post('/governance/policies', form);
+        if (!form.title || !form.effectiveDate) {
+          alert("Title and Effective Date are required.");
+          return;
+        }
+        await post('/governance/policies', { version: '1.0', status: 'PUBLISHED', ...form });
         refetchPolicies();
       } else if (tab === 'audits') {
-        await post('/governance/audits', form);
+        if (!form.departmentId || !form.auditType || !form.auditor || !form.auditDate) {
+          alert("All fields (Department, Audit Type, Auditor, Audit Date) are required.");
+          return;
+        }
+        await post('/governance/audits', { status: 'COMPLETED', ...form });
         refetchAudits();
       } else {
-        await post('/governance/compliance-issues', form);
+        if (!form.auditId || !form.description || !form.ownerEmployeeId || !form.dueDate) {
+          alert("All fields (Audit, Owner Employee, Description, Due Date) are required.");
+          return;
+        }
+        await post('/governance/compliance-issues', { severity: 'LOW', ...form });
         refetchIssues();
       }
       setShowModal(false);
@@ -157,6 +170,10 @@ export default function GovernancePage() {
               <FormField label="Audit">
                 <Select options={[{ value: '', label: 'Select...' }, ...audits.map(a => ({ value: a.id, label: `${a.auditType} - ${a.department?.name}` }))]}
                   onChange={e => setForm({ ...form, auditId: e.target.value })} />
+              </FormField>
+              <FormField label="Owner Employee">
+                <Select options={[{ value: '', label: 'Select...' }, ...(empData?.data || []).map(emp => ({ value: emp.id, label: `${emp.name} (${emp.department?.name || 'No Dept'})` }))]}
+                  onChange={e => setForm({ ...form, ownerEmployeeId: e.target.value })} />
               </FormField>
               <FormField label="Severity">
                 <Select options={['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'].map(s => ({ value: s, label: s }))}
