@@ -1,6 +1,6 @@
 # 🌍 EcoSphere — Enterprise ESG Management Platform
 
-Welcome to **EcoSphere** (developed under the *Pavitrarpan Foundation* workspace), a state-of-the-art Enterprise ESG (Environmental, Social, and Governance) Management Platform. Designed for modern corporations and NGOs, EcoSphere empowers organizations to track their carbon footprint, manage social impact initiatives, streamline governance policies, and drive employee engagement through gamification.
+Welcome to **EcoSphere** , a state-of-the-art Enterprise ESG (Environmental, Social, and Governance) Management Platform. Designed for modern corporations and NGOs, EcoSphere empowers organizations to track their carbon footprint, manage social impact initiatives, streamline governance policies, and drive employee engagement through gamification.
 
 ---
 
